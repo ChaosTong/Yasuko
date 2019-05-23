@@ -1,0 +1,64 @@
+<aside id="toc"></aside>
+
+{{!-- 配置及生成目录 --}}
+<script>
+    document.onreadystatechange = function (){
+        if (document.readyState === 'complete') {
+            var headerList = Array.from(document.querySelectorAll("h2,h3,h4,h5,h6"));
+
+            function tree(headerList, e){
+                if(!e) return listChildren(headerList, {tagName: 'H1'})
+                var resultTree = {'headTitle': e.innerText, 'id': e.id};
+
+                if(getLevel(e) < 6){
+                    var children = listChildren(headerList ,e);
+                    if(children.length != 0)
+                        resultTree.children = children;
+                }
+                return resultTree;
+            }
+
+            function getLevel(e){
+                return e.tagName.match(/\d/);
+            }
+
+            function listChildren(headerList, e){
+                var resultList = [];
+                var index = headerList.indexOf(e);
+
+                while(headerList[index+1] && getLevel(headerList[index+1]) > getLevel(e)){
+                    if(getLevel(headerList[index+1]) - 1 == getLevel(e))
+                        resultList.push(tree(headerList, headerList[index+1]))
+                    index++;
+                }
+                return resultList;
+            }
+            
+            console.log(tree(headerList));
+            let str = "<ol>"
+            tree(headerList).forEach( fuck => {
+                if (fuck.children) {
+                    str += `<li><a href="#${fuck.id}">${fuck.headTitle}</a></li>`
+                    str += "<ol>"
+                    fuck.children.forEach( fc => {
+                        if (fc.children) {
+                            str += `<li><a href="#${fc.id}">${fc.headTitle}</a></li>`
+                            str += "<ol>"
+                            fc.children.forEach( fcc => {
+                                str += `<li><a href="#${fcc.id}">${fcc.headTitle}</a></li>`
+                            })
+                            str += "</ol>"
+                        } else {
+                            str += `<li><a href="#${fc.id}">${fc.headTitle}</a></li>`
+                        }
+                    })
+                    str += "</ol>"
+                } else {
+                    str += `<li><a href="#${fuck.id}">${fuck.headTitle}</a></li>`
+                }
+            })
+            str += "</ol>"
+            document.getElementById('toc').innerHTML = str
+        }
+    }
+</script>

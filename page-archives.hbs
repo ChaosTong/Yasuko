@@ -1,9 +1,5 @@
 {{!< default}}
 
-{{! The comment above "< default" means - insert everything in this file into
-    the {body} of the default.hbs template, which contains our header/footer. }}
-
-{{! Everything inside the #post tags pulls data from the post }}
 {{#post}}
     {{#if feature_image}}
     <img src="{{feature_image}}!wechatsmall" class="wechat-only">
@@ -21,14 +17,14 @@
         </div>
         <div class="header-wrap" >
             <div class="post-info-container">
+                <h2 class="post-page-title ">
+                {{title}}
+            </h2>
+                <time class="post-page-time">{{date format="DD MMMM YYYY"}}</time>
+                <span class="post-page-author">{{#author}}{{name}}{{/author}}</span>
                 <span class="post-page-tags">
                     {{tags prefix="" separator=" "}}
-                </span>
-                <h1 class="post-page-title">
-                {{title}}
-            </h1>
-            <time class="post-page-time">{{date format="DD MMMM YYYY"}}</time>
-            <span class="post-page-author">{{#author}}{{name}}{{/author}}</span>
+               </span>
             </div>
 
         </div>
@@ -41,10 +37,11 @@
 
 
 <main class="content" id="main" role="main">
-    {{> "toc"}}
+
     <article class="{{post_class}}">
-    <section class="post-content">
-    <div class="single-post-inner">
+
+     <section class="post-content">
+     <div class="single-post-inner">
         {{content}}
         <div class="tag-box">
           {{tags prefix="" separator=" "}}
@@ -71,6 +68,7 @@
         </div>
      </div>
     </section>
+
 
     {{#author}}
                 <section class="author">
@@ -129,7 +127,7 @@
     {{#next_post}}
     <a class="read-next-story {{#if feature_image}} lazy" data-url="{{feature_image}}" style="background-image: url(){{else}}no-cover{{/if}}" href="{{url}}">
         <section class="post">
-            <h1>{{title}}</h1>
+            <h2>{{title}}</h2>
             <p>{{excerpt words="6"}}&hellip;</p>
         </section>
     </a>
@@ -137,7 +135,7 @@
     {{#prev_post}}
     <a class="read-next-story prev {{#if feature_image}} lazy" data-url="{{feature_image}}" style="background-image: url(){{else}}no-cover{{/if}}" href="{{url}}">
         <section class="post">
-            <h1>{{title}}</h1>
+            <h2>{{title}}</h2>
             <p>{{excerpt words="6"}}&hellip;</p>
         </section>
     </a>
@@ -150,3 +148,55 @@
 
 <script type="text/javascript" src="{{asset "js/prism.js"}}"></script>
 {{/post}}
+
+<article class="archives"></article>
+
+<script src="//cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/moment.js/2.14.1/moment.min.js"></script>
+<script type = "text/javascript"> 
+/**
+ * 调用ghost API，完成文章归档功能
+ * 所需组件：jQuery、moment.js
+ * @ldsun.com
+ */
+jQuery(document).ready(function() {
+	//获取所有文章数据，按照发表时间排列
+	$.get(ghost.url.api('posts', {
+		limit: 'all',
+		order: "published_at desc"
+	})).done(function(data) {
+		var posts = data.posts;
+		var count = posts.length;
+		for (var i = 0; i < count; i++) {
+			//调用comentjs对时间戳进行操作
+			//由于ghost默认是CST时区，所以日期会有出入，这里消除时区差
+			var time = moment(posts[i].published_at).utcOffset("-08:00");
+			var year = time.get('y');
+			var month = time.get('M')+1;
+			var date = time.get('D');
+			if( date<10 ) date = "0"+date;
+			var title = posts[i].title;
+			var url = "{{@blog.url}}"+posts[i].url;
+			//首篇文章与其余文章分步操作
+			if (i > 0) {
+				var pre_month = moment(posts[i - 1].published_at).utcOffset("-08:00").get('month')+1;
+				//如果当前文章的发表月份与前篇文章发表月份相同，则在该月份ul下插入该文章
+				if (month == pre_month) {
+					var html = "<li><time>"+date+"日</time><a href='"+url+"'>"+title+"</a></li>";
+					$(html).appendTo(".archives .list-"+year+"-"+month);
+				}
+				//当月份不同时，插入新的月份
+				else{
+					var html = "<div class='item'><h3><i class='fa fa-calendar fa-fw' aria-hidden='true'></i> "+year+"-"+month+"</h3><ul class='archives-list list-"+year+"-"+month+"'><li><time>"+date+"日</time><a href='"+url+"'>"+title+"</a></li></ul></div>";
+					$(html).appendTo('.archives');
+				}
+			}else{
+				var html = "<div class='item'><h3><i class='fa fa-calendar fa-fw' aria-hidden='true'></i> "+year+"-"+month+"</h3><ul class='archives-list list-"+year+"-"+month+"'><li><time>"+date+"日</time><a href='"+url+"'>"+title+"</a></li></ul></div>";
+				$(html).appendTo('.archives');
+			}
+		}
+	}).fail(function(err) {
+		console.log(err);
+	});
+}); 
+</script>
