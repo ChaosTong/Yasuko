@@ -58,11 +58,11 @@ function loadJS(url, callback, el) {
  */
 
 var duoshuoQuery = {
-    short_name: "luolei"
+    short_name: "chaos"
 };
 
 var GlobalConfigue = {
-    masterDomain: 'https://luolei.org',
+    masterDomain: 'http://tongchao.xyz',
 }
 
 
@@ -182,7 +182,7 @@ var General = {
             'github': iconFontTag + '-github',
             'douban': iconFontTag + '-douban',
             'google': iconFontTag + '-google',
-            'luolei': iconFontTag + '-luolei',
+            'tongchao': iconFontTag + '-tongchao',
             'dribble': iconFontTag + '-dribble',
             'v2ex': iconFontTag + '-v2ex',
             'zhihu': iconFontTag + '-zhihu',
@@ -267,8 +267,8 @@ var General = {
 
     },
     commentLoader: function() {
-        var appid = 'cyt1tJHSI';
-        var conf = 'prod_213d23efd9c346f1d884951eff4a4efd';
+        // var appid = 'cyt1tJHSI';
+        // var conf = 'prod_213d23efd9c346f1d884951eff4a4efd';
 
         if (!$('body').hasClass('post-template')) {
             return false;
@@ -281,13 +281,13 @@ var General = {
                 var d = document,
                     s = d.createElement('script');
 
-                s.src = 'https://luoleiorg.disqus.com/embed.js';
+                s.src = 'https://tongchao-xyz.disqus.com/embed.js';
 
                 s.setAttribute('data-timestamp', +new Date());
                 // (d.head || d.body).appendChild(s);
 
                 // if (General.viewWidth > 960) {
-                loadJS('https://luoleiorg.disqus.com/embed.js', function() {
+                loadJS('https://tongchao-xyz.disqus.com/embed.js', function() {
                         $('.author-image').addClass('comment-loaded');
                         DISQUS.reset({
                             reload: true,

@@ -694,6 +694,16 @@ h1 {
   box-sizing: border-box;
   z-index: 0; }
 
+#header-index {
+  position: relative;
+  display: table;
+  text-align: center;
+  width: 100%;
+  height: 30vh;
+  padding: 2rem 0;
+  box-sizing: border-box;
+  z-index: 0; }
+
 #footer {
   margin-top: 12rem;
   height: 30rem;
@@ -760,7 +770,7 @@ h1 {
   display: block; }
 
 .home-template #main, .archive-template #main {
-  max-width: 76.8rem; }
+  max-width: 90%; }
 
 .post-template #main {
   max-width: 76.8rem; }
@@ -802,7 +812,15 @@ h1 {
   position: relative;
   z-index: 1;
   width: 74%;
-  max-width: 86rem;
+  max-width: 90%;
+  margin: 0rem auto; }
+
+#main-archives {
+  top: 50px;
+  position: relative;
+  z-index: 1;
+  width: 50%;
+  max-width: 70%;
   margin: 0rem auto; }
 
 .post-in-list {
@@ -1278,7 +1296,6 @@ a.btn-post-excerpt {
   .home-info-container h2, .home-info-container h4 {
     color: #fff;
     font-family: "Exo", "-apple-system", "Open Sans", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", "Hiragino Sans GB", "Microsoft YaHei", Helvetica, Arial, sans-serif;
-    font-weight: lighter;
     text-shadow: 0 1px 1px #595959; }
     .home-info-container h2:hover, .home-info-container h4:hover {
       color: #efefef;

@@ -112,6 +112,18 @@ h1 {
     box-sizing: border-box;
     z-index: 0;
 }
+#header-index {
+    position: relative;
+    display: table;
+    text-align: center;
+    width: 100%;
+    height: 30vh;
+    // max-height: 52rem;
+    padding: 2rem 0;
+    // margin-bottom: 72px;
+    box-sizing: border-box;
+    z-index: 0;
+}
 #footer {
     margin-top: 12rem;
     // padding: 124px 0 72px;
@@ -192,7 +204,7 @@ h1 {
 }
 .home-template, .archive-template {
     #main {
-        max-width: 76.8rem;
+        max-width: 90%;
     }
 }
 .post-template {
@@ -265,7 +277,7 @@ h1 {
     position: relative;
     z-index: 1;
     width: 74%;
-    max-width: 86rem;
+    max-width: 90%;
     margin: 0rem auto;
     img {
         // display: block;
@@ -274,6 +286,14 @@ h1 {
         // height: auto;
         // margin: 0 auto;
     }
+}
+#main-archives {
+    top: 50px;
+    position: relative;
+    z-index: 1;
+    width: 50%;
+    max-width: 70%;
+    margin: 0rem auto;
 }
 .post-in-list {
     // visibility: hidden;
@@ -832,7 +852,7 @@ a.btn-post-excerpt {
     h2, h4 {
         color: #fff;
         font-family: $googleFontExo, $fontOSX;
-        font-weight: lighter;
+        // font-weight: lighter;
         text-shadow: 0 1px 1px #595959;
         &:hover {
             color: #efefef;

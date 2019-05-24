@@ -957,6 +957,21 @@ h1
     text-align: center;
 }
 
+#header-index
+{
+    position: relative;
+    z-index: 0; 
+
+    display: table;
+
+    box-sizing: border-box;
+    width: 100%;
+    height: 30vh;
+    padding: 2rem 0;
+
+    text-align: center;
+}
+
 #footer
 {
     position: relative;
@@ -1063,7 +1078,7 @@ h1
 .home-template #main,
 .archive-template #main
 {
-    max-width: 76.8rem;
+    max-width: 90%;
 }
 
 .post-template #main
@@ -1126,7 +1141,18 @@ h1
     z-index: 1;
 
     width: 74%;
-    max-width: 86rem;
+    max-width: 90%;
+    margin: 0rem auto;
+}
+
+#main-archives
+{
+    position: relative;
+    z-index: 1;
+    top: 50px;
+
+    width: 50%;
+    max-width: 70%;
     margin: 0rem auto;
 }
 
@@ -1916,7 +1942,6 @@ a.btn-post-excerpt
 .home-info-container h4
 {
     font-family: 'Exo', '-apple-system', 'Open Sans', 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', 'Hiragino Sans GB', 'Microsoft YaHei', Helvetica, Arial, sans-serif;
-    font-weight: lighter;
 
     color: #fff;
     text-shadow: 0 1px 1px #595959;
